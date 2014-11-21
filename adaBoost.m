@@ -1,9 +1,9 @@
-function [ weak_learners ] = adaBoost( all_features, label, weight )
+function [ weak_learners ] = adaBoost( all_features, label, weight, loops, path )
 %ADABOOST Summary of this function goes here
 %   Detailed explanation goes here
 n = size(all_features, 2);
-weak_learners = cell(1, 100);
-for i=1:100,
+weak_learners = cell(1, loops);
+for i=1:loops,
     weight = weight / sum(weight);
     errors = zeros(1,n);
     thresholds = zeros(1,n);
@@ -13,7 +13,7 @@ for i=1:100,
             display(strcat(['Get error for iteration: ', num2str(i), ', feature ', num2str(j)]));
         end
         feature = all_features{j};
-        feature_path = strcat(['../features/feature_', num2str(feature.type), '_', num2str(feature.index), '.mat']);
+        feature_path = strcat([path, 'feature_', num2str(feature.type), '_', num2str(feature.index), '.mat']);
         load(feature_path);
         [errors(j), thresholds(j), operations(j)] = get_threshold(diff_sorted, order, label, weight);
     end

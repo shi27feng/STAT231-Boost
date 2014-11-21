@@ -13,6 +13,11 @@ a(r2,(c1+1):c2) = 0;
 a((r1+1):r2, c1+1) = 0;
 a((r1+1):r2, c2) = 0;
 
+a(1,:) = 0;
+a(256,:) = 0;
+a(:,1) = 0;
+a(:, 256) = 0;
+
 if feature.type == 3,
     a((r1+1):r2, (2*c1+c2)/3) = 0;
     a((r1+1):r2, (c1+2*c2)/3) = 0;
@@ -26,7 +31,7 @@ if feature.type == 2 || feature.type == 4,
     a((r1+r2)/2, (c1+1):c2)=0;
 end
 
-imwrite(uint8(a), strcat(['../plots/feature_', num2str(index), '.bmp']));
+imwrite(uint8(a), strcat(['../plots/feature_', num2str(index), '.png']));
 
 end
 
